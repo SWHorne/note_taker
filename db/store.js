@@ -1,6 +1,5 @@
 const util = require('util');
 const fs = require('fs');
-//UUID
 const uuidv1 = require('uuid').v1;
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
@@ -11,16 +10,12 @@ class Store {
     }
     getNotes(){
         return this.read()
-        .then((data) => {
-            
+        .then((data) => {            
             data = JSON.parse(data);
-            // return [...data];
             if(data.length === 0){
                 return [];
             } else return [...data];
         }).then(notes => notes); 
-
-
     }
     write(note) {
         return writeFileAsync('db/db.json',JSON.stringify(note));
@@ -49,9 +44,7 @@ class Store {
             } return newNotesArr;
         }).then((newUpdateNotes) => {
             return this.write(newUpdateNotes);
-
         });
-
     }
 };
 module.exports = new Store();
